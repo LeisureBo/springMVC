@@ -1,4 +1,4 @@
-package com.bo.controller;
+package com.bo.springmvc.controller;
 
 import java.util.HashMap;
 import java.util.Map;

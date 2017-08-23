@@ -1,4 +1,4 @@
-package com.bo.model;
+package com.bo.springmvc.model;
 
 import java.util.Date;
 

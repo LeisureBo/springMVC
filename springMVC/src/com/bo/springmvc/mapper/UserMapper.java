@@ -1,10 +1,10 @@
-package com.bo.mapper;
+package com.bo.springmvc.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.bo.model.User;
+import com.bo.springmvc.model.User;
 
 /**
  * @Description Mapper映射类(相当于MVC Dao层)

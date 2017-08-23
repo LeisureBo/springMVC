@@ -1,4 +1,4 @@
-package com.test;
+package com.bo.springmvc.test;
 
 /**
  * @Description

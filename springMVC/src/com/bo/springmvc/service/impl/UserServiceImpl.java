@@ -1,4 +1,4 @@
-package com.bo.service.impl;
+package com.bo.springmvc.service.impl;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.bo.mapper.UserMapper;
-import com.bo.model.User;
-import com.bo.service.UserService;
+import com.bo.springmvc.mapper.UserMapper;
+import com.bo.springmvc.model.User;
+import com.bo.springmvc.service.UserService;
 
 /**
  * @Description 

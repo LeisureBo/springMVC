@@ -8,10 +8,10 @@
 	<!-- 这是一种简写形式,会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter两个bean,是spring MVC为@Controllers分发请求所必须的。
 	并提供了数据绑定支持，@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持(Jackson)。
 	后面我们处理响应ajax请求时，就使用到了对json的支持。对action写JUnit单元测试时，要从spring IOC容器中取DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter两个bean，来完成测试 -->
-	<!-- <mvc:annotation-driven /> -->
-	
+	<mvc:annotation-driven />
+<!-- 	
 	<mvc:annotation-driven>  
-    <!-- 处理responseBody 里面日期类型 -->  
+    处理responseBody 里面日期类型  
         <mvc:message-converters>  
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
                 <property name="objectMapper">  
@@ -25,30 +25,37 @@
                 </property>  
             </bean>  
         </mvc:message-converters>  
-    </mvc:annotation-driven>
-	
-	<!-- 将静态资源的处理经由Spring MVC框架交回Web应用服务器处理。 -->
-	<mvc:default-servlet-handler />
-	
-	<!-- 由Spring MVC框架自己处理静态资源，并添加一些有用的附加值功能。 -->
-	<!-- <mvc:resources location="" mapping=""/> -->
-	
-	<!-- 加载配置文件 -->
-	<!-- classpath是指 WEB-INF文件夹下的classes目录  -->
-	<!-- classpath:和classpath*:的区别： 
-		 classpath:只会到你的classes路径中查找找文件; 
-		 classpath*:不仅包含classes路径，还包括jar包中的classes路径进行查找. 
-	-->
-	<context:property-placeholder location="classpath:*.properties" ignore-unresolvable="true" />
+    </mvc:annotation-driven> -->
 	
 	<!-- 设置使用SpringMVC注解的类所在包 -->
-	<context:component-scan base-package="com.bo.controller">
+	<context:component-scan base-package="com.bo.springmvc.controller">
 		<!-- 防止SpringMVC和SpringIOC对同一个对象的管理重合 -->
 		<!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" /> -->
 		<!-- <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" /> -->
 	</context:component-scan>
 	
-	<!-- 配置spring视图解析器 如何把handler方法返回值解析为实际的物理视图 -->
+	<!-- 将静态资源的处理经由Spring MVC框架交回Web应用服务器处理。 -->
+	<mvc:default-servlet-handler />
+	
+	<!-- 由Spring MVC框架自己处理的静态资源，并添加一些有用的附加值功能。 -->
+	<!-- <mvc:resources mapping="" location="" /> -->
+	
+	<!-- 加载配置文件 -->
+	<!-- classpath是指 WEB-INF文件夹下的classes目录  -->
+	<!-- classpath:和classpath*:的区别： 
+		 classpath:只会到你的classes路径中查找找文件; 
+		 classpath*:不仅包含classes路径，还包括jar包中的classes路径进行查找. -->
+	<context:property-placeholder location="classpath:config/*.properties" ignore-unresolvable="true" />
+	
+	<!-- 访问拦截 -->
+	<!-- <mvc:interceptors> -->
+	<!-- <mvc:interceptor> -->
+	<!-- <mvc:mapping path="/**/**"/> -->
+	<!-- <bean class="info.louiseknights.interceptor.LoginHandlerInterceptor"/> -->
+	<!-- </mvc:interceptor> -->
+	<!-- </mvc:interceptors> -->
+	
+	<!-- 配置springMVC的视图解析器 如何把handler方法返回值解析为实际的物理视图 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/"/>
 		<property name="suffix" value=".jsp"/>

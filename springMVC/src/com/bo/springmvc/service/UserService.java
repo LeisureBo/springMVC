@@ -1,10 +1,10 @@
-package com.bo.service;
+package com.bo.springmvc.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.bo.model.User;
+import com.bo.springmvc.model.User;
 
 /**
  * @Description 

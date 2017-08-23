@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bo.mapper.UserMapper">
+<mapper namespace="com.bo.springmvc.mapper.UserMapper">
 	<!-- 增删改返回值默认为int类型,表示实际影响的记录行数;查询需指定返回值类型 -->
 	
 	<!-- 取得所有用户 (resultType返回的是集合中的元素类型，而不是集合本身)-->

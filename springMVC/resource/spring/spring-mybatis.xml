@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd	
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- 配置数据源 阿里数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!--  -->
+		<property name="filters" value="${filters}" />
+		<!-- 初始化连接数量 -->
+		<property name="initialSize" value="${initialSize}"></property>
+		<!-- 最大并发连接数 -->
+		<property name="maxActive" value="${maxActive}"></property>
+		<!-- 最大空闲连接数 -->
+		<property name="maxIdle" value="${maxIdle}"></property>
+		<!-- 最小空闲连接数 -->
+		<property name="minIdle" value="${minIdle}"></property>
+		<!-- 获取连接等待超时时间 -->
+		<property name="maxWait" value="${maxWait}"></property>
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testWhileIdle" value="${testWhileIdle}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />
+		<property name="testOnReturn" value="${testOnReturn}" />
+		<!--  -->
+		<property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}" />
+		<!-- 打开removeAbandoned功能 -->
+		<property name="removeAbandoned" value="${removeAbandoned}" />
+		<!-- 1800秒，也就是30分钟 -->
+		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="${logAbandoned}" />
+	</bean>
+
+	<!-- Spring集成MyBatis 开始 -->
+	<!-- SqlSessionFactoryBean是一个工厂bean，它的作用就是解析配置（数据源、别名等） -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- mybatis配置文件位置.如果指定了该属性，那么会以该配置文件的内容作为配置信息构建对应的SqlSessionFactoryBuilder，但是后续属性指定的内容会覆盖该配置文件里面指定的对应内容。 -->
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<!-- 自动配置别名,它一般对应我们的实体类所在的包，这个时候会自动取对应包中不包括包名的简单类名作为包括包名的别名。多个package之间可以用逗号或者分号等来进行分隔。(value的值一定要是包的全名)-->
+		<property name="typeAliasesPackage" value="com.bo.springmvc.model" />
+		<!-- 表示Mapper文件存放的位置,当Mapper文件跟对应的Mapper接口处于同一位置的时候可以不用指定该属性的值。**表示递归查找 -->
+		<property name="mapperLocations" value="classpath:com/bo/springmvc/mapper/**/*.xml" />
+		<!-- 数组类型，用来指定类别名的。指定了这个属性后，Mybatis会把这个类型的短名称作为这个类型的别名，前提是该类上没有标注@Alias注解，否则将使用该注解对应的值作为此种类型的别名。(value的值一定要是类的完全限定名) -->
+		<!-- <property name="typeAliases">
+			<array>  
+				<value>com.bo.springmvc.model.User</value>  
+				<value>com.bo.springmvc.model.Person</value>  
+			</array>
+		</property> -->
+	</bean>
+	<!-- 扫描指定包下的所有mapper接口并创建各自接口的动态代理bean然后注入到服务层 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 为映射器接口文件设置基本的包路径,使用分号或逗号作为分隔符设置多于一个的包路径 -->
+		<property name="basePackage" value="com.bo.springmvc.mapper" />
+		<!-- 使用了一个以上的 DataSource使用该属性来配置正确的sqlSessionFactory  -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<!-- 需要注意的是，以下两个过滤条件只能配一个。 -->
+		<!-- markerInterface：基于接口的过滤器，实现了该接口的dao才会被扫描器扫描，与basePackage是与的作用。 -->
+		<!-- <property name="markerInterface" value="com.xxx.dao.BatchDao" /> -->
+		<!-- annotationClass：基于注解的过滤器，配置了该注解的dao才会被扫描器扫描，与basePackage是与的作用。 -->
+		<!-- <property name="annotationClass" value="com.xxx.dao.BatchAnnotation" /> -->
+	</bean>
+	<!-- Spring集成MyBatis 结束 -->
+
+	<!-- 事务处理配置 begin -->
+	<!-- 事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- AOP方式事务配置 -->
+	<!-- 通知 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 传播行为 -->
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+	<!--  -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<!-- 切面 -->
+	<aop:config>
+		<aop:pointcut id="pc" expression="execution(* com.bo.springmvc.service..*(..))" />
+		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" />
+	</aop:config>
+	<!-- 事务注解驱动，标注@Transactional的类和方法将具有事务性 -->  
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- 事务处理配置 end -->
+</beans>

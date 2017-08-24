@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bo.springmvc.mapper.UserMapper;
 import com.bo.springmvc.model.User;
@@ -64,4 +65,34 @@ public class UserServiceImpl implements UserService{
 		}
 		return result;
 	}
+
+	@Transactional
+	@Override
+	public int txUpdateUser(User u1, User u2) {// 事务性
+		int ret1 = userMapper.updateUserById(u1);// 因后面的异常而回滚
+		int i = 1 / 0;// 抛出运行时异常，事务回滚
+		int ret2 = userMapper.updateUserById(u2);// 未执行
+		if(ret1 == 1 && ret2 == 1){
+			return 1;
+		}
+		return 0;
+	}
+	
+	// 事务性操作，但是外围框架捕获不到异常，认为执行正确而提交。
+	public int txUpdateUserAndCatch(User u1, User u2){  
+		try {
+			int ret1 = userMapper.updateUserById(u1);// 执行成功
+			int i = 1 / 0;// 运行时异常
+			int ret2 = userMapper.updateUserById(u2);// 未执行
+			if(ret1 == 1 && ret2 == 1){
+				return 1;
+			}
+		} catch (Exception e) { // 所有异常被捕获而未抛出
+//			e.printStackTrace();
+			throw e;
+		}
+		return 0;
+	}
+	
+	
 }

@@ -47,4 +47,7 @@ public interface UserService {
 	public int deleteUserById(Integer id);
 	
 	
+	public int txUpdateUser(User u1, User u2);//事务测试1
+	
+	public int txUpdateUserAndCatch(User u1, User u2);//事务测试2
 }

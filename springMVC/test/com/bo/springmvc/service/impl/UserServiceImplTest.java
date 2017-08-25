@@ -2,6 +2,8 @@ package com.bo.springmvc.service.impl;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
+
 import javax.enterprise.context.spi.Context;
 
 import org.junit.After;
@@ -59,16 +61,18 @@ public class UserServiceImplTest {
 
 	/**
 	 * Test method for {@link com.bo.springmvc.service.impl.UserServiceImpl#txUpdateUser(com.bo.springmvc.model.User, com.bo.springmvc.model.User)}.
+	 * @throws Exception 
 	 */
 	@Test
-	public void testTxUpdateUser() {
+	public void testTxUpdateUser() throws Exception {
 		UserService userService = (UserService) ctx.getBean("userService");
 		User u1 = userService.findUserByUsername("bo");
-		u1.setAge(23);
+		u1.setAge(24);
 		User u2 = userService.findUserByUsername("sunjian");
 		u2.setPassword("123");
 //		int ret = userService.txUpdateUser(u1, u2);
 		int ret = userService.txUpdateUserAndCatch(u1, u2);
+//		int ret = userService.NonTransactionUpdate(u1, u2);
 		System.out.println("result:"+ret);
 	}
 

@@ -1,5 +1,6 @@
 package com.bo.springmvc.service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -47,7 +48,9 @@ public interface UserService {
 	public int deleteUserById(Integer id);
 	
 	
-	public int txUpdateUser(User u1, User u2);//事务测试1
+	public int txUpdateUser(User u1, User u2) throws FileNotFoundException;// 事务测试1
 	
-	public int txUpdateUserAndCatch(User u1, User u2);//事务测试2
+	public int txUpdateUserAndCatch(User u1, User u2);// 事务测试2
+
+	public int NonTransactionUpdate(User u1, User u2);// 非事务测试
 }

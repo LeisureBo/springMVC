@@ -96,7 +96,7 @@
 			<tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
 		</tx:attributes>
 	</tx:advice>
-	<!--  -->
+	<!-- 控制是基于接口的还是基于类的代理被创建. true:基于类的代理将起作用(这时需要CGLIB库cglib.jar在CLASSPATH中); false(默认):标准的JDK基于接口的代理将起作用 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<!-- 切面 -->
 	<aop:config>

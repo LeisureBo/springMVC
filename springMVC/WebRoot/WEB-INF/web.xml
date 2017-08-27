@@ -15,18 +15,19 @@
   <!-- 指定Spring Bean的配置文件所在目录。默认配置在WEB-INF目录下 -->
   <context-param>  
     <param-name>contextConfigLocation</param-name>  
-    <param-value>classpath:applicationContext.xml</param-value>
+    <param-value>classpath:spring/applicationContext.xml</param-value>
   </context-param>
   
   <!-- springMVC 前端控制器 -->
   <servlet>
   	<servlet-name>springmvc</servlet-name>
+  	<!-- 前端控制器Servlet,负责请求分发 -->
   	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
   	<!-- 加载配置文件路径 -->
   	<!-- 自定义servlet.xml配置文件的位置和名称，默认为WEB-INF目录下，名称为[<servlet-name>]-servlet.xml，如springmvc-servlet.xml -->
   	<init-param>
   		<param-name>ContextConfigLocation</param-name>
-  		<param-value>classpath:springmvc-servlet.xml</param-value>
+  		<param-value>classpath:spring/applicationContext-mvc.xml</param-value>
   	</init-param>
   	<!-- 何时启动 大于0的值表示容器启动时初始化此servlet，正值越小优先级越高 -->
   	<load-on-startup>1</load-on-startup>
@@ -36,6 +37,23 @@
   	<servlet-name>springmvc</servlet-name>
   	<!-- 由SpringMVC拦截所有请求(缺省匹配,可匹配所有请求和静态资源) -->
   	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Hessian访问配置 -->
+  <servlet>
+  	<servlet-name>hessian</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<!-- 加载配置文件路径 -->
+  	<!-- 自定义servlet.xml配置文件的位置和名称，默认为WEB-INF目录下，名称为[<servlet-name>]-servlet.xml，如springmvc-servlet.xml -->
+  	<init-param>
+  		<param-name>ContextConfigLocation</param-name>
+  		<param-value>classpath:spring/hessian-server.xml</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>hessian</servlet-name>
+  	<url-pattern>/hessian/*</url-pattern>
   </servlet-mapping>
   
   <!--解决中文乱码问题 -->

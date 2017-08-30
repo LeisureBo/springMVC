@@ -2,10 +2,6 @@ package com.bo.springmvc.service.impl;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
-
-import javax.enterprise.context.spi.Context;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

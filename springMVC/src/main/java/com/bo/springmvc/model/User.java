@@ -2,9 +2,6 @@ package com.bo.springmvc.model;
 
 import java.util.Date;
 
-import javax.validation.constraints.Past;
-
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**

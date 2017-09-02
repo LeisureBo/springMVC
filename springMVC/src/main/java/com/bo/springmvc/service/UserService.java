@@ -3,8 +3,6 @@ package com.bo.springmvc.service;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.bo.springmvc.model.User;
 
 /**

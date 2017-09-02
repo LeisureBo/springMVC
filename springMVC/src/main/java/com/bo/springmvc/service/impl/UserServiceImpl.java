@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService{
 		return userMapper.selectUserByUsername(username);
 	}
 
+	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public int saveOrUpdateUser(User user) {
 		int result = 0;
@@ -53,6 +54,7 @@ public class UserServiceImpl implements UserService{
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			result = -1;
 		}
 		return result;

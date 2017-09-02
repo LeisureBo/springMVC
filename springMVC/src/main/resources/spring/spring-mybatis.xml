@@ -92,7 +92,7 @@
 	<!-- 注解式事务配置 -->
 	<!-- 事务注解驱动，标注@Transactional的类和方法将具有事务性 -->  
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	<!-- 控制是基于接口的还是基于类的代理被创建. true:基于类的代理将起作用(这时需要CGLIB库cglib.jar在CLASSPATH中); false(默认):标准的JDK基于接口的代理将起作用 -->
+	<!-- 开启AOP注解,控制是基于接口的还是基于类的代理被创建. true:基于类的代理将起作用(这时需要CGLIB库cglib.jar在CLASSPATH中); false(默认):标准的JDK基于接口的代理将起作用 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	
 	<!-- AOP方式事务配置 -->

@@ -6,6 +6,7 @@ import javax.servlet.ServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,9 +55,11 @@ public class UserController {
 		User u = userService.findUserByUsername(user.getUsername());
 		//用户不存在执行新增
 		if(u == null){
-			int result = userService.saveOrUpdateUser(user);
-			if(result > 0){
-				mv.setViewName("success");
+			if(!StringUtils.isEmpty(user.getUsername()) && !StringUtils.isEmpty(user.getAge()) && !StringUtils.isEmpty(user.getPassword())){
+				int result = userService.saveOrUpdateUser(user);
+				if(result > 0){
+					mv.setViewName("success");
+				}
 			}
 		}
 		return mv;

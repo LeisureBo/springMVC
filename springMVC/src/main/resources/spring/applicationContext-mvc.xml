@@ -52,10 +52,14 @@
 		<mvc:interceptor>
 			<!-- 拦截所有请求 -->
 			<!-- <mvc:mapping path="/**" /> -->
+			<!-- 拦截根目录 -->
+			<!-- <mvc:mapping path="/" /> -->
 			<!-- 排除指定路径 -->
 			<!-- <mvc:exclude-mapping path="/test/**"/> -->
 			<mvc:mapping path="/user/**" />
 			<mvc:mapping path="/test/**" />
+			<!-- exclude标签只能在include存在时使用且必须在最后声明 -->
+			<mvc:exclude-mapping path="/user/login" />
 			<bean class="com.bo.springmvc.interceptor.CommonInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

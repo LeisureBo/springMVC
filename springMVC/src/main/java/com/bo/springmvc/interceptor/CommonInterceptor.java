@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bo.springmvc.model.User;
+
 /**
  * @Description 
  * @author 王博
@@ -40,13 +42,13 @@ public class CommonInterceptor implements HandlerInterceptor{
 		logger.info("contextPath:" + contextPath);
 		logger.info("url:" + url);
 
-		String user = (String) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
 			logger.info("用户未登录：跳转到login页面！");
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 			return false;
-		} 
-		return true;  
+		}
+		return true;
 	}
 	
 	/**

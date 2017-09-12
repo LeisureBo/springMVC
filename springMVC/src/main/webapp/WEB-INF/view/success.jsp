@@ -23,8 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-	<h4>username:${user.username}<br/>
-		password:${user.password}
+	<h4>message:${message}<br/>
+		username:${user.username}<br/>
+		password:${user.password}<br/>
+		returnTime:${curTime}
 	</h4>
   </body>
 </html>

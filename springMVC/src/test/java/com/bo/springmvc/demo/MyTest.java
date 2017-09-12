@@ -12,5 +12,6 @@ public class MyTest {
 		String test  = "com.bo.demo.service.impl.BankService.batchUpdate";
 		Pattern pattern = Pattern.compile("com.bo.demo.service.impl.*");
 		System.out.println(pattern.matcher(test).matches());
+		System.out.println(pattern.getClass().getSimpleName());
 	}
 }

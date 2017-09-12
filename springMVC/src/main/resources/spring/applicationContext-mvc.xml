@@ -34,10 +34,10 @@
 		<!-- <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" /> -->
 	</context:component-scan>
 	
-	<!-- 将静态资源的处理经由Spring MVC框架交回Web应用服务器处理。 -->
+	<!-- 将静态资源的处理经由Spring MVC框架交回Web应用服务器处理(不支持访问WEB-INF目录) -->
 	<mvc:default-servlet-handler />
 	
-	<!-- 由Spring MVC框架自己处理的静态资源，并添加一些有用的附加值功能。 -->
+	<!-- 由Spring MVC框架自己处理的静态资源，并添加一些有用的附加值功能(支持访问WEB-INF目录) -->
 	<!-- <mvc:resources mapping="" location="" /> -->
 	
 	<!-- 加载配置文件 -->
@@ -48,12 +48,17 @@
 	<context:property-placeholder location="classpath:config/*.properties" ignore-unresolvable="true" />
 	
 	<!-- 访问拦截 -->
-	<!-- <mvc:interceptors> -->
-	<!-- <mvc:interceptor> -->
-	<!-- <mvc:mapping path="/**/**"/> -->
-	<!-- <bean class="info.louiseknights.interceptor.LoginHandlerInterceptor"/> -->
-	<!-- </mvc:interceptor> -->
-	<!-- </mvc:interceptors> -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 拦截所有请求 -->
+			<!-- <mvc:mapping path="/**" /> -->
+			<!-- 排除指定路径 -->
+			<!-- <mvc:exclude-mapping path="/test/**"/> -->
+			<mvc:mapping path="/user/**" />
+			<mvc:mapping path="/test/**" />
+			<bean class="com.bo.springmvc.interceptor.CommonInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 	<!-- 配置springMVC的视图解析器 如何把handler方法返回值解析为实际的物理视图 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

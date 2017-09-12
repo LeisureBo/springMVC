@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bo.springmvc.model.User;
@@ -20,6 +21,7 @@ import com.bo.springmvc.service.UserService;
  * @version 2017年3月20日　下午5:40:16
  */
 @Controller
+@SessionAttributes("user")
 @RequestMapping("/user")
 public class UserController {
 	

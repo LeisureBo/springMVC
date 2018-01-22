@@ -64,8 +64,16 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
-	<!-- 配置springMVC的视图解析器 如何把handler方法返回值解析为实际的物理视图 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- 该标签用于简化ParameterizableViewController映射到视图的配置,当响应视图是不需要执行控制器逻辑时使用
+		path="/hello" 就是你访问的路径,相当于RequestMapping("/hello")
+		view-name="hello"是你所要的视图,如hello.jsp,相当于return "hello" 或 "redirect:hello"
+	 -->
+	<mvc:view-controller path="/" view-name="index"/>
+	
+	<!-- 配置springMVC的默认视图解析器(上边的解析器优先)如何把handler方法返回值解析为实际的物理视图 (默认使用html)-->
+	<bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="contentType" value="text/html"/>
 		<property name="prefix" value="/WEB-INF/view/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>

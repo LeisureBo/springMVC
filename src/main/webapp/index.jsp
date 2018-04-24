@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
 	<a href="test/helloworld">HelloWord</a>
-	<form action="user/login" method="post">
+	<form action="<%=path %>/user/login" method="post"><!--  -->
 		username:<input name="username" type="text"/><br/>
 		password:<input name="password" type="password"/>
 		<input type="submit" value="登录"/> <a href="register.jsp">注册</a>

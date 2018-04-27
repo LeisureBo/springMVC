@@ -34,11 +34,13 @@
 		<!-- <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" /> -->
 	</context:component-scan>
 	
-	<!-- 将静态资源的处理经由Spring MVC框架交回Web应用服务器处理(不支持访问WEB-INF目录) -->
+	<!-- 将静态资源的处理经由Spring MVC框架交回Web应用服务器处理(不支持访问WEB-INF目录) 实际处理类: org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler -->
 	<mvc:default-servlet-handler />
 	
-	<!-- 由Spring MVC框架自己处理的静态资源，并添加一些有用的附加值功能(支持访问WEB-INF目录) -->
-	<!-- <mvc:resources mapping="" location="" /> -->
+	<!-- 静态资源处理优先级：controller(如果映射路径为静态资源) > [mvc:resources] > [mvc:default-servlet-hanlder] -->
+	
+	<!-- 由Spring MVC框架自己处理的静态资源，并添加一些有用的附加值功能(支持访问WEB-INF目录) 实际处理类: org.springframework.web.servlet.resource.ResourceHttpRequestHandler -->
+	<!-- <mvc:resources mapping="/**" location="/" /> -->
 	
 	<!-- 加载配置文件 -->
 	<!-- classpath是指 WEB-INF文件夹下的classes目录  -->

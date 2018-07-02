@@ -31,6 +31,9 @@ public class JwtTokenUtilsTest extends AbstractJUnit4SpringContextTests {
 	public void testGetToken() {
 		String token = jwtTokenUtils.getAccessToken("bo");
 		System.out.println(token);
+		String clientToken = "eyeXAiOiJKV1QiLCJleHAiOiIxNTMwNTUxNTEwMTIyIiwiYWxnIjoiSFMyNTYifQ.eyJ1aWQiOiJibyIsImlzcyI6ImNvbXBhbnlOYW1lIn0.2ToQaCs2KQ7c3pg3rCVIafaHvG9VbCgoPbW5bOl1XR0"; 
+		String uid= jwtTokenUtils.verifyToken(clientToken);
+		System.out.println("uid: " + uid);
 	}
 
 }

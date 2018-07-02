@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.remoting.caucho.HessianServiceExporter;
 
-import com.bo.springmvc.util.SecurityTool;
+import com.bo.springmvc.utils.SecurityTool;
 
 /**
  * @Description 继承HessianServiceExporter可完成一些自定义的工作，如鉴权、预处理、日志、事务管理什么的

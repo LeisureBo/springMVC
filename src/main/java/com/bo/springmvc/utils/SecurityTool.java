@@ -1,4 +1,4 @@
-package com.bo.springmvc.util;
+package com.bo.springmvc.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

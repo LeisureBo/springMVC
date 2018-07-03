@@ -24,9 +24,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
 	<h4>
-		message:${resp.code}<br/>
-		username:${resp.message}<br/>
-		password:${resp.data}<br/>
+		retCode:${resp.code}<br/>
+		retMsg:${resp.message}<br/>
+		data:${resp.data}<br/>
 	</h4>
   </body>
 </html>

@@ -3,6 +3,10 @@ package com.bo.springmvc.service;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import com.bo.springmvc.dto.CheckTokenRequest;
+import com.bo.springmvc.dto.CheckTokenResponse;
+import com.bo.springmvc.dto.UserLoginRequest;
+import com.bo.springmvc.dto.UserLoginResponse;
 import com.bo.springmvc.model.User;
 
 /**
@@ -11,6 +15,20 @@ import com.bo.springmvc.model.User;
  * @version 2017年3月20日　下午5:36:14
  */
 public interface UserService {
+	
+	/**
+	 * 登录
+	 * @param request
+	 * @return
+	 */
+	public UserLoginResponse login(UserLoginRequest request);
+	
+    /**
+     * 校验Token
+     * @param request
+     * @return
+     */
+    public CheckTokenResponse validToken(CheckTokenRequest request);
 	
 	/**
 	 * @Description 取得所有用户

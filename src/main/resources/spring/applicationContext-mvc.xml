@@ -8,24 +8,34 @@
 	<!-- 这是一种简写形式,会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter两个bean,是spring MVC为@Controllers分发请求所必须的。
 	并提供了数据绑定支持，@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持(Jackson)。
 	后面我们处理响应ajax请求时，就使用到了对json的支持。对action写JUnit单元测试时，要从spring IOC容器中取DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter两个bean，来完成测试 -->
-	<mvc:annotation-driven />
-<!-- 	
-	<mvc:annotation-driven>  
-    处理responseBody 里面日期类型  
-        <mvc:message-converters>  
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
-                <property name="objectMapper">  
-                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">  
-                        <property name="dateFormat">  
-                            <bean class="java.text.SimpleDateFormat">  
-                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />  
-                            </bean>  
-                        </property>  
-                    </bean>  
-                </property>  
-            </bean>  
-        </mvc:message-converters>  
-    </mvc:annotation-driven> -->
+	<!-- <mvc:annotation-driven /> -->
+
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<property name="dateFormat">
+							<bean class="java.text.SimpleDateFormat">
+								<!-- 日期格式转换 -->
+								<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+							</bean>
+						</property>
+					</bean>
+				</property>
+			</bean>
+			<!-- 编码转换 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 	
 	<!-- 设置使用SpringMVC注解的类所在包 -->
 	<context:component-scan base-package="com.bo.springmvc.controller">

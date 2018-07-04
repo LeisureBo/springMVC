@@ -44,7 +44,7 @@ public class CommonInterceptor implements HandlerInterceptor{
 		logger.info("contextPath:" + contextPath);
 		logger.info("url:" + url);
 		logger.info("method:" + methodName);
-
+		// 基于session的认证拦截
 		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
 			logger.info("用户未登录：跳转到login页面！");

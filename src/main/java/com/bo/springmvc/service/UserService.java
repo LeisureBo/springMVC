@@ -28,7 +28,7 @@ public interface UserService {
      * @param request
      * @return
      */
-    public CheckTokenResponse validToken(CheckTokenRequest request);
+    public CheckTokenResponse validateToken(CheckTokenRequest request);
 	
 	/**
 	 * @Description 取得所有用户

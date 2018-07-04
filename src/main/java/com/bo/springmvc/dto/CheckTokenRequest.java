@@ -12,6 +12,12 @@ public class CheckTokenRequest extends AbstractRequest {
 	
 	private String token;
 
+	public CheckTokenRequest() {}
+	
+	public CheckTokenRequest(String token) {
+		this.token = token;
+	}
+	
     public String getToken() {
         return token;
     }
@@ -20,10 +26,10 @@ public class CheckTokenRequest extends AbstractRequest {
         this.token = token;
     }
 
-    @Override
-    public String toString() {
-        return "CheckAuthRequest{" +
-                "token='" + token + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "CheckTokenRequest [token=" + token + ", " + super.toString() + "]";
+	}
+
+
 }

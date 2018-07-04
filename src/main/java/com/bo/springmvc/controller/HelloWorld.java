@@ -12,7 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/test")
 public class HelloWorld {
-	@RequestMapping("/helloworld")
+	
+	@RequestMapping("/sayHi")
 	public ModelAndView sayHello(){
 		System.out.println("Controller:HelloWorld execute..");
 		//1、收集参数  

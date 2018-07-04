@@ -14,6 +14,6 @@ public class AbstractRequest implements Serializable{
 
     @Override
     public String toString() {
-        return "AbstractRequest{}";
+        return "AbstractRequest[]";
     }
 }

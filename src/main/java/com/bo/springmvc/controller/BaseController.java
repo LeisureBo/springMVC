@@ -10,11 +10,11 @@ public class BaseController {
 	
 	private static ThreadLocal<String> userHolder = new ThreadLocal<>();
 	
-	protected String getUid() {
+	public String getUid() {
 		return userHolder.get();
 	}
 	
-	protected void setUid(String uid) {
+	public void setUid(String uid) {
 		userHolder.set(uid);
 	}
 }

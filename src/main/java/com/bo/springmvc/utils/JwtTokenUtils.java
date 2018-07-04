@@ -27,7 +27,7 @@ public class JwtTokenUtils {
 	
 	private String APP_SECRET_KEY = "secret_key";// 密钥
 	
-	private long MAX_TOKEN_AGE = 1800; // 存活期/秒
+	private long MAX_TOKEN_AGE = 300; // 存活期/秒
 	
 	private String ALGORITHM = "HmacSHA256";// 加密算法
 	

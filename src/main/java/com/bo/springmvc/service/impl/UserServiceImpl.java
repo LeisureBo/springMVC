@@ -52,16 +52,16 @@ public class UserServiceImpl implements UserService{
 			User user = userMapper.selectUserByUsername(request.getUsername());
 			if(user == null || !user.getPassword().equals(request.getPassword())) {
 				response.setRetCode(ResponseCodeEnum.USER_OR_PASSWORD_ERRROR.getCode());
-                response.setRetCode(ResponseCodeEnum.USER_OR_PASSWORD_ERRROR.getMsg());
-                return response;
+                response.setRetMsg(ResponseCodeEnum.USER_OR_PASSWORD_ERRROR.getMsg());
+			}else {
+				// 生成token 
+				String token = jwtTokenUtils.getAccessToken(String.valueOf(user.getId()));
+				if(token == null) throw new ValidateException(ResponseCodeEnum.GENERATE_TOKEN_ERROR.getCode(),"生成token失败");
+				response.setUid(user.getId());
+				response.setToken(token);
+				response.setRetCode(ResponseCodeEnum.SUCCESS.getCode());
+				response.setRetMsg(ResponseCodeEnum.SUCCESS.getMsg());
 			}
-			// 生成token 
-			String token = jwtTokenUtils.getAccessToken(String.valueOf(user.getId()));
-			if(token == null) throw new ValidateException(ResponseCodeEnum.GENERATE_TOKEN_ERROR.getCode(),"生成token失败");
-			response.setUid(user.getId());
-			response.setToken(token);
-			response.setRetCode(ResponseCodeEnum.SUCCESS.getCode());
-			response.setRetMsg(ResponseCodeEnum.SUCCESS.getMsg());
 		} catch (Exception e) {
 			logger.error("login occur exception :" + e);
 			ServiceException serviceException = (ServiceException) ExceptionUtils.handlerException4biz(e);
@@ -73,13 +73,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public CheckTokenResponse validToken(CheckTokenRequest request) {
+	public CheckTokenResponse validateToken(CheckTokenRequest request) {
 		logger.info("valid token request --> " + request);
 		CheckTokenResponse response = new CheckTokenResponse();
 		try {
 			beforeValidToken(request);
 			String uid = jwtTokenUtils.verifyToken(request.getToken());
-			if(uid == null) throw new ValidateException(ResponseCodeEnum.SIGNATURE_ERROR.getCode(), "解析token失败");
+			if(uid == null) throw new ValidateException(ResponseCodeEnum.TOKEN_SIGNATURE_ERROR.getCode(), "校验token失败");
 			response.setUid(uid);
 			response.setRetCode(ResponseCodeEnum.SUCCESS.getCode());
 			response.setRetMsg(ResponseCodeEnum.SUCCESS.getMsg());

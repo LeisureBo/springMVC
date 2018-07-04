@@ -6,7 +6,7 @@ package com.bo.springmvc.dto;
  * @version 2018年7月3日 下午9:51:04
  * @码云 https://gitee.com/LeisureBo
  */
-public class UserLoginRequest extends AbstractResponse {
+public class UserLoginRequest extends AbstractRequest {
 
 	private static final long serialVersionUID = -4348505782077265900L;
 
@@ -41,6 +41,12 @@ public class UserLoginRequest extends AbstractResponse {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "UserLoginRequest [username=" + username + ", password=" + password + ", " + super.toString()
+				+ "]";
 	}
 
 }

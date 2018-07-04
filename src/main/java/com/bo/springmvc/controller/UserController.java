@@ -77,5 +77,10 @@ public class UserController extends BaseController {
 		return mv;
 	}
 	
+	@RequestMapping("/test")
+	public ModelAndView test() {
+		logger.info("step into test..");
+		return new ModelAndView("success");
+	}
 	
 }

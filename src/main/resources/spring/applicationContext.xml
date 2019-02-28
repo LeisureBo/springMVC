@@ -13,14 +13,14 @@
         http://www.springframework.org/schema/util 
         http://www.springframework.org/schema/util/spring-util-4.0.xsd">
         
-    <!-- enable autowire -->
+    <!-- enable autowire(该配置项可被<context:component-scan/>代替) -->
     <!-- 隐式地向 Spring容器注册AutowiredAnnotationBeanPostProcessor、RequiredAnnotationBeanPostProcessor、CommonAnnotationBeanPostProcessor以及PersistenceAnnotationBeanPostProcessor这4个BeanPostProcessor -->
 	<!-- 无需在配置文件中声明相应的processor即可使用  @Autowired、@Required、@Resource、@PostConstruct、@PreDestroy、@PersistenceContext等注解 -->
-	<context:annotation-config />
+	<!-- <context:annotation-config /> -->
 	
 	<!-- configure the springIOC -->
 	<!-- 指定了需要扫描的类包，类包及其递归子包中所有的类都会被处理 -->
-	<!-- 该配置项其实也包含了自动注入上述processor的功能，因此当使用<context:component-scan/>后，即可将<context:annotation-config/>省去。 -->
+	<!-- 注意：该配置项其实也包含了自动注入上述processor的功能，因此当使用<context:component-scan/>后，即可将<context:annotation-config/>省去。 -->
 	<context:component-scan base-package="com.bo.springmvc">
 		<!-- 启动组件扫描，排除@Controller组件，该组件由SpringMVC配置文件扫描，防止SpringMVC和SpringIOC对同一个对象的管理重合 -->
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
